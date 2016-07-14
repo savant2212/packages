@@ -41,6 +41,11 @@ $(call Package/net-snmp/Default)
   SECTION:=libs
   CATEGORY:=Libraries
   TITLE:=Open source SNMP implementation (libraries)
+  DEPENDS:=+libopenssl
+endef
+
+define Package/libnetsnmp/config
+	depends on libopenssl
 endef
 
 define Package/libnetsnmp/description
@@ -67,7 +72,19 @@ define Package/snmpd
 $(call Package/net-snmp/Default)
   DEPENDS:=+libnetsnmp
   TITLE:=Open source SNMP implementation (daemon)
+#  MENU:=1
 endef
+
+#define Package/snmpd/config
+#	menu "Configuration"
+#	depends on PACKAGE_snmpd
+#	
+#		config SNMPD_OPENSSL
+#		bool "Compile with openssl support"
+#		default n
+#		depends PACKAGE_libopenssl
+#	endmenu
+#endef
 
 define Package/snmpd/description
 $(call Package/net-snmp/Default/description)
@@ -170,7 +187,7 @@ CONFIGURE_ARGS += \
 	--with-mib-modules="$(SNMP_MIB_MODULES_INCLUDED)" \
 	--with-out-transports="$(SNMP_TRANSPORTS_EXCLUDED)" \
 	--with-transports="$(SNMP_TRANSPORTS_INCLUDED)" \
-	--without-openssl \
+	$(SNMP_OPENSSL) \
 	--without-libwrap \
 	--without-rpm \
 	--without-zlib \
@@ -179,6 +196,12 @@ CONFIGURE_ARGS += \
 ifeq ($(CONFIG_IPV6),y)
 SNMP_TRANSPORTS_INCLUDED+= UDPIPv6
 endif
+
+#ifeq ($(CONFIG_SNMPD_OPENSSL),y)
+SNMP_OPENSSL=--with-openssl
+#else
+#SNMP_OPENSSL=--without-openssl
+#endif
 
 TARGET_LDFLAGS += -L$(TOOLCHAIN_DIR)/usr/lib
 
