@@ -177,7 +177,8 @@ PYTHON_BASE_LIB_FILES:= \
 	/usr/lib/python$(PYTHON_VERSION)/traceback.py \
 	/usr/lib/python$(PYTHON_VERSION)/types.py \
 	/usr/lib/python$(PYTHON_VERSION)/UserDict.py \
-	/usr/lib/python$(PYTHON_VERSION)/warnings.py
+	/usr/lib/python$(PYTHON_VERSION)/warnings.py \
+	/usr/lib/python$(PYTHON_VERSION)/lib-dynload/_struct.so
 
 PYTHON_LIB_FILES_DEL+=$(PYTHON_BASE_LIB_FILES)
 
