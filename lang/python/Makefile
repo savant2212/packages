@@ -173,6 +173,7 @@ PYTHON_BASE_LIB_FILES:= \
 	/usr/lib/python$(PYTHON_VERSION)/sre_parse.py \
 	/usr/lib/python$(PYTHON_VERSION)/sysconfig.py \
 	/usr/lib/python$(PYTHON_VERSION)/stat.py \
+	/usr/lib/python$(PYTHON_VERSION)/struct.py \
 	/usr/lib/python$(PYTHON_VERSION)/traceback.py \
 	/usr/lib/python$(PYTHON_VERSION)/types.py \
 	/usr/lib/python$(PYTHON_VERSION)/UserDict.py \
