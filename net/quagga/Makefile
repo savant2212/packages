@@ -203,6 +203,7 @@ define Package/quagga-zebra/install
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/zebra $(1)/usr/sbin/
 	$(INSTALL_DIR) $(1)/etc/quagga
 	chmod 0750 $(1)/etc/quagga
+	$(INSTALL_DIR) $(1)/usr/share/quagga
 	$(INSTALL_CONF) ./files/quagga.conf $(1)/usr/share/quagga/default.conf
 	$(INSTALL_DIR) $(1)/lib/upgrade/keep.d
 	$(INSTALL_CONF) ./files/quagga.keep $(1)/lib/upgrade/keep.d/quagga
