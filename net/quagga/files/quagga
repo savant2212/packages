@@ -26,6 +26,7 @@ shift
 ARG_DAEMONS=$*
 BINDIR=/usr/sbin
 CONFDIR=/etc/quagga
+SHAREDIR=/usr/share/quagga
 STATEDIR=/var/run/quagga
 RUNUSER=network
 RUNGROUP=$RUNUSER
@@ -122,8 +123,12 @@ in
 		START_DAEMONS=
 		for d in ${DAEMONS_STARTSEQ}
 		do
-			[ -x "${BINDIR}/${d}" -a -f "${CONFDIR}/${d}.conf" ] \
-			&& START_DAEMONS="${START_DAEMONS}${d} "
+			[ "$d" = "watchquagga" ] && continue
+			if [ -x "${BINDIR}/${d}" ]; then
+				[ ! -f "${CONFDIR}/${d}.conf" ] && cp "${SHAREDIR}/default.conf" "${SHAREDIR}/${d}.conf"
+			else
+				continue
+			fi
 		done
 		WATCHQUAGGA_DAEMONS=${START_DAEMONS}
 		if is_in watchquagga "${DAEMONS_STARTSEQ}"

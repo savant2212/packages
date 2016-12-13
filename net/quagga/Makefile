@@ -203,55 +203,57 @@ define Package/quagga-zebra/install
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/zebra $(1)/usr/sbin/
 	$(INSTALL_DIR) $(1)/etc/quagga
 	chmod 0750 $(1)/etc/quagga
-	$(INSTALL_CONF) ./files/quagga.conf $(1)/etc/quagga/zebra.conf
+	$(INSTALL_CONF) ./files/quagga.conf $(1)/usr/share/quagga/default.conf
+	$(INSTALL_DIR) $(1)/lib/upgrade/keep.d
+	$(INSTALL_CONF) ./files/quagga.keep $(1)/lib/upgrade/keep.d/quagga
 endef
 
 define Package/quagga-bgpd/install
 	$(INSTALL_DIR) $(1)/usr/sbin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/bgpd $(1)/usr/sbin/
-	$(INSTALL_DIR) $(1)/etc/quagga
-	chmod 0750 $(1)/etc/quagga
-	$(INSTALL_CONF) ./files/quagga.conf $(1)/etc/quagga/bgpd.conf
+	# $(INSTALL_DIR) $(1)/etc/quagga
+	# chmod 0750 $(1)/etc/quagga
+	# $(INSTALL_CONF) ./files/quagga.conf $(1)/etc/quagga/bgpd.conf
 endef
 
 define Package/quagga-isisd/install
 	$(INSTALL_DIR) $(1)/usr/sbin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/isisd $(1)/usr/sbin/
-	$(INSTALL_DIR) $(1)/etc/quagga
-	chmod 0750 $(1)/etc/quagga
-	$(INSTALL_CONF) ./files/quagga.conf $(1)/etc/quagga/isisd.conf
+	# $(INSTALL_DIR) $(1)/etc/quagga
+	# chmod 0750 $(1)/etc/quagga
+	# $(INSTALL_CONF) ./files/quagga.conf $(1)/etc/quagga/isisd.conf
 endef
 
 define Package/quagga-ospfd/install
 	$(INSTALL_DIR) $(1)/usr/sbin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/ospfd $(1)/usr/sbin/
-	$(INSTALL_DIR) $(1)/etc/quagga
-	chmod 0750 $(1)/etc/quagga
-	$(INSTALL_CONF) ./files/quagga.conf $(1)/etc/quagga/ospfd.conf
+	# $(INSTALL_DIR) $(1)/etc/quagga
+	# chmod 0750 $(1)/etc/quagga
+	# $(INSTALL_CONF) ./files/quagga.conf $(1)/etc/quagga/ospfd.conf
 endef
 
 define Package/quagga-ospf6d/install
 	$(INSTALL_DIR) $(1)/usr/sbin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/ospf6d $(1)/usr/sbin/
-	$(INSTALL_DIR) $(1)/etc/quagga
-	chmod 0750 $(1)/etc/quagga
-	$(INSTALL_CONF) ./files/quagga.conf $(1)/etc/quagga/ospf6d.conf
+	# $(INSTALL_DIR) $(1)/etc/quagga
+	# chmod 0750 $(1)/etc/quagga
+	# $(INSTALL_CONF) ./files/quagga.conf $(1)/etc/quagga/ospf6d.conf
 endef
 
 define Package/quagga-ripd/install
 	$(INSTALL_DIR) $(1)/usr/sbin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/ripd $(1)/usr/sbin/
-	$(INSTALL_DIR) $(1)/etc/quagga
-	chmod 0750 $(1)/etc/quagga
-	$(INSTALL_CONF) ./files/quagga.conf $(1)/etc/quagga/ripd.conf
+	# $(INSTALL_DIR) $(1)/etc/quagga
+	# chmod 0750 $(1)/etc/quagga
+	# $(INSTALL_CONF) ./files/quagga.conf $(1)/etc/quagga/ripd.conf
 endef
 
 define Package/quagga-ripngd/install
 	$(INSTALL_DIR) $(1)/usr/sbin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/ripngd $(1)/usr/sbin/
-	$(INSTALL_DIR) $(1)/etc/quagga
-	chmod 0750 $(1)/etc/quagga
-	$(INSTALL_CONF) ./files/quagga.conf $(1)/etc/quagga/ripngd.conf
+	# $(INSTALL_DIR) $(1)/etc/quagga
+	# chmod 0750 $(1)/etc/quagga
+	# $(INSTALL_CONF) ./files/quagga.conf $(1)/etc/quagga/ripngd.conf
 endef
 
 define Package/quagga-vtysh/install
