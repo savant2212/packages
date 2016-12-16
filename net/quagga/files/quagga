@@ -125,7 +125,7 @@ in
 		do
 			[ "$d" = "watchquagga" ] && continue
 			if [ -x "${BINDIR}/${d}" ]; then
-				[ ! -f "${CONFDIR}/${d}.conf" ] && cp "${SHAREDIR}/default.conf" "${SHAREDIR}/${d}.conf"
+				[ ! -f "${CONFDIR}/${d}.conf" ] && cp "${SHAREDIR}/default.conf" "${CONFDIR}/${d}.conf"
 				START_DAEMONS="${START_DAEMONS}${d} "
 			else
 				continue
