@@ -8,11 +8,11 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=quagga
-PKG_VERSION:=1.1.0
-PKG_RELEASE:=1
-PKG_MD5SUM:=daa303871e07ea5856aae6fd79e89722
+PKG_VERSION:=0.99.22.4
+PKG_RELEASE:=2
+PKG_MD5SUM:=03ef24a448be47beba80efa2152f8a28
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://download.savannah.gnu.org/releases/quagga/
 PKG_CONFIG_DEPENDS:= \
 	CONFIG_IPV6 \
@@ -172,7 +172,6 @@ CONFIGURE_ARGS+= \
 	--enable-group=network \
 	--enable-multipath=8 \
 	--disable-ospfclient \
-	--disable-capabilities \
 	--disable-doc \
 	$(call autoconf_bool,CONFIG_PACKAGE_quagga-libzebra,zebra) \
 	$(call autoconf_bool,CONFIG_PACKAGE_quagga-libospf,ospfd) \
