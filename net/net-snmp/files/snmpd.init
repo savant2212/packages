@@ -177,6 +177,7 @@ start_service() {
         config_foreach snmpd_exec_add exec
         config_foreach snmpd_disk_add disk
 
+        echo "pass .1.3.6.1.4.1.35489.1 /usr/libexec/snmp/irz-snmp.sh" >> $CONFIGFILE
         echo "pass .1.3.6.1.4.1.35489.4 /usr/libexec/snmp/irz-mobile-snmp.sh" >> $CONFIGFILE
 
         procd_set_param command $PROG -Lf /dev/null -f
