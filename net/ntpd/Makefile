@@ -114,11 +114,12 @@ CONFIGURE_ARGS += \
 
 define Package/ntpd/install
 	$(INSTALL_DIR) $(1)/sbin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/ntpd/ntpd $(1)/sbin/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/ntpd/ntpd $(1)/sbin/ntpd-server
 	$(INSTALL_DIR) $(1)/etc
 	$(INSTALL_CONF) ./files/ntp.conf $(1)/etc/
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/ntpd.init $(1)/etc/init.d/ntpd
+	$(INSTALL_BIN) ./files/sysntpd.init $(1)/etc/init.d/sysntpd.init
 	$(INSTALL_DIR) $(1)/etc/hotplug.d/iface
 	$(INSTALL_BIN) ./files/ntpd.hotplug $(1)/etc/hotplug.d/iface/20-ntpd
 endef
@@ -126,6 +127,8 @@ endef
 define Package/ntpd/postinst
 #!/bin/sh
 [ -L "$${IPKG_INSTROOT}/usr/sbin/ntpd" ] && rm -f "$${IPKG_INSTROOT}/usr/sbin/ntpd"
+/etc/init.d/sysntpd stop
+cp /etc/init.d/sysntpd.init /etc/init.d/sysntpd
 exit 0
 endef
 

@@ -1,0 +1,25 @@
+#!/bin/sh /etc/rc.common
+# Copyright (C) 2006-2011 OpenWrt.org
+
+START=91
+STOP=91
+
+USE_PROCD=1
+
+CONFIG="/etc/ntp.conf"
+
+start_service() {
+	/etc/init.d/ntpd start
+}
+
+restart_service() {
+	/etc/init.d/ntpd restart
+}
+
+stop_service() {
+	/etc/init.d/ntpd stop
+}
+
+reload_service() {
+	/etc/init.d/ntpd restart
+}

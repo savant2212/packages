@@ -1,18 +1,44 @@
 #!/bin/sh /etc/rc.common
 # Copyright (C) 2006-2011 OpenWrt.org
 
-START=65
-STOP=65
+START=91
+STOP=91
 
 USE_PROCD=1
 
+CONFIG="/etc/ntp.conf"
+
+configure_server() {
+	echo "server $1 iburst" >> $CONFIG
+}
+
+ntpd_instance() {
+	echo "restrict 127.0.0.1" > $CONFIG
+	echo "driftfile /var/lib/ntp.drift" >> $CONFIG
+
+	config_list_foreach "$1" server configure_server
+
+	echo "server 127.127.20.0 minpoll 4 maxpoll 4 iburst" >> $CONFIG
+	echo "fudge 127.127.20.0 refid PPS stratum 3" >> $CONFIG
+	echo "server 127.127.28.0 minpoll 4 maxpoll 4 iburst" >> $CONFIG
+	echo "fudge 127.127.28.0 refid GPS stratum 3" >> $CONFIG
+}
+
 start_service() {
-#	ln -sf /dev/ttyS0 /dev/gps0
+	echo "" > $CONFIG
+	config_load "system"
+	config_foreach ntpd_instance timeserver
+
+	ln -sf /dev/ttyGNSS0 /dev/gps0
 #	/usr/sbin/setgarmin -d /dev/gps -c /etc/setgarmin.conf
-	mkdir -p /var/lib/ntp
-	chown -R ntp:ntp /var/lib/ntp
+	mkdir -p /var/run/ntp
+	chown -R ntp:ntp /var/run/ntp
 
 	procd_open_instance
-	procd_set_param command /sbin/ntpd -g -u ntp:ntp -p /var/run/ntpd.pid -n
+	procd_set_param command /sbin/ntpd-server -g -u ntp:ntp -p /var/run/ntpd.pid -n
 	procd_close_instance
+}
+
+reload_service() {
+	/etc/init.d/ntpd restart
 }
