@@ -106,6 +106,7 @@ CONFIGURE_ARGS += \
 	--enable-LOCAL-CLOCK \
 	--enable-SHM \
 	--enable-ATOM \
+	--enable-linuxcaps \
 	--with-yielding-select=yes \
 	--with-crypto \
 	--with-openssl-incdir="$(STAGING_DIR)/usr/include" \
@@ -146,7 +147,9 @@ endef
 
 define Package/ntp-utils/install
 	$(INSTALL_DIR) $(1)/usr/sbin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/ntpdc/ntpdc $(1)/usr/sbin/
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/ntpq/ntpq $(1)/usr/sbin/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/util/ntptime $(1)/usr/sbin/
 endef
 
 define Package/ntp-keygen/install

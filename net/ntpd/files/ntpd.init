@@ -15,10 +15,10 @@ configure_server() {
 ntpd_instance() {
 	echo "restrict 127.0.0.1" > $CONFIG
 	echo "driftfile /var/lib/ntp.drift" >> $CONFIG
-	echo "server 127.127.22.0 minpoll 2 maxpoll 2 prefer" >> $CONFIG
-	echo "fudge 127.127.22.0 time1 0.099 refid PPS stratum 2" >> $CONFIG
-	echo "server 127.127.28.0 minpoll 2 maxpoll 4 prefer" >> $CONFIG
-	echo "fudge 127.127.28.0 flag1 1 time1 0.228 refid SHM stratum 5" >> $CONFIG
+	echo "server 127.127.22.0 minpoll 2 maxpoll 4 prefer" >> $CONFIG
+	echo "fudge 127.127.22.0 refid PPS stratum 1" >> $CONFIG
+	echo "server 127.127.28.0 minpoll 4 maxpoll 4 prefer" >> $CONFIG
+	echo "fudge 127.127.28.0 flag1 1 time1 0.350 refid GPS stratum 5" >> $CONFIG
 	echo "tinker panic 0 stepout 1" >> $CONFIG
 	config_list_foreach "$1" server configure_server
 }
@@ -28,6 +28,9 @@ start_service() {
 	config_load "system"
 	config_foreach ntpd_instance timeserver
 
+	ln -sf /dev/pps0 /dev/gpspps0
+	ln -sf /dev/ttyGNSS0 /dev/gps0
+#	/usr/sbin/setgarmin -d /dev/gps -c /etc/setgarmin.conf
 	mkdir -p /var/run/ntp
 	chown -R ntp:ntp /var/run/ntp
 
