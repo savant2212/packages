@@ -190,6 +190,8 @@ define Package/quagga/install
 	$(INSTALL_BIN) ./files/quagga $(1)/usr/sbin/quagga.init
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/quagga.init $(1)/etc/init.d/quagga
+	$(INSTALL_DIR) $(1)/etc/config
+	$(INSTALL_BIN) ./files/quagga.uci_conf $(1)/etc/config/quagga
 endef
 
 define Package/quagga-watchquagga/install

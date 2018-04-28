@@ -1,9 +1,16 @@
 #!/bin/sh /etc/rc.common
 # Copyright (C) 2006 OpenWrt.org
 
+DAEMONS=$(opkg list-installed | awk -F- '/quagga-/{print $2}' | grep -E '(^zebra|d(\ |$))')
+
 START=60
 start() {
-	/usr/sbin/quagga.init start
+    START_DAEMONS=" "
+    for x in $DAEMONS; do
+        [ "$(uci -q get quagga.services.${x})" = "0" ] && continue
+        START_DAEMONS="$x $START_DAEMONS"
+    done
+	/usr/sbin/quagga.init start "$START_DAEMONS"
 }
 
 stop() {
